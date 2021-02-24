@@ -49,15 +49,9 @@ def update_graph():
     ax.set_xlabel('f, Гц')
     ax.set_ylabel('c')
 
-    X_TICKS = 200
-    Y_TICKS = 200
-    GAP_IN_TICKS = 10
-    c_start = 100
-    c_stop = 500
-
     f = np.linspace(f_start, f_stop, X_TICKS, dtype=np.float64)
     k = 2 * np.pi * np.sqrt(beta0 * rho0) * f
-    c_ = np.linspace(c_start, c_stop, Y_TICKS)
+    c_ = np.linspace(c1_start, c1_stop, Y_TICKS)
 
     sca = []
 
@@ -68,20 +62,28 @@ def update_graph():
     plt.pcolor(sca, norm=NORM, cmap=COLOR_MAP)
 
     f_ticks = np.linspace(f_start, f_stop, round(X_TICKS/GAP_IN_TICKS))
-    c_ticks = np.linspace(c_start, c_stop, round(Y_TICKS/GAP_IN_TICKS))
+    c_ticks = np.linspace(c1_start, c1_stop, round(Y_TICKS / GAP_IN_TICKS))
     plt.xticks([GAP_IN_TICKS*i+0.5 for i in range(round(X_TICKS/GAP_IN_TICKS))], np.round(f_ticks, 3), rotation='vertical')
     plt.yticks([GAP_IN_TICKS*i+0.5 for i in range(round(Y_TICKS/GAP_IN_TICKS))], np.round(c_ticks, 3))
-    # plt.hlines(y=(330/np.sqrt(6)-c_start)/(c_stop-c_start)*Y_TICKS, xmax=X_TICKS, xmin=0)
+    plt.xlabel('freq')
+    plt.ylabel('c1')
+    plt.title('c0 = %.2f, rho0 = %.2f, rho1 = %.2f'%(c0, rho0, rho1))
 
 
 if __name__ == '__main__':
     a = 1
     rho0 = 1.39
-    с0 = 331
-    beta0 = 1 / (с0**2 * rho0)
+    c0 = 331
+    beta0 = 1 / (c0**2 * rho0)
     rho1 = 2
-    c1 = 1*330
-    beta1 = 1 / (c1**2 * rho1)
+
+    X_TICKS = 100   # кол-во пикселей по Х
+    Y_TICKS = 100   # кол-во пикселей по У
+    GAP_IN_TICKS = 10   # расстояние между подписями на графике
+
+    c1_start = 100
+    c1_stop = 500
+
     f_start = 30
     f_stop = 2000
 
