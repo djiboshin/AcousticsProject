@@ -7,8 +7,9 @@ from matplotlib.widgets import Slider, TextBox
 class SliderClass:
     def __init__(self, index, name, min, max, start):
         self.slider_ax = fig.add_axes([0.05, 0.84 - 0.04*index, 0.24, 0.02])
-        self.slider = Slider(self.slider_ax, name, min, max, valinit=start)
+        self.slider = Slider(self.slider_ax, name, np.real(min), np.real(max), valinit=np.real(start))
         self.slider.on_changed(on_change_graph)
+
 
 def sphericalh1(n, z, p=0):
     if p:
@@ -68,13 +69,13 @@ def update_graph():
     ax.legend(legend)
 
 
-def on_change_с_particle(value):
+def on_change_c_particle(value):
     global beta1, beta1_slider
     beta1 = 1/((float(value))**2 * rho1)
     beta1_slider.slider.set_val(beta1)
 
 
-def on_change_с_host(value):
+def on_change_c_host(value):
     global beta0, beta0_slider
     beta0 = 1/((float(value))**2 * rho0)
     beta0_slider.slider.set_val(beta0)
@@ -112,13 +113,13 @@ def on_change_graph(value):
 if __name__ == '__main__':
     a = 0.01
     rho0 = 1.39
-    с0 = 331.45
-    beta0 = 1 / (с0**2 * rho0)
+    c0 = 331.45
+    beta0 = 1 / (c0 ** 2 * rho0)
     rho1 = 97
-    c1 = 500
+    c1 = 123
     beta1 = 1 / (c1**2 * rho1)
     f_start = 1
-    f_stop = 200000
+    f_stop = 15000
 
     MULTIPOLES = 5
 
@@ -127,10 +128,10 @@ if __name__ == '__main__':
     fig.subplots_adjust(left=0.4)
     update_graph()
 
-    с_particle = TextBox(fig.add_axes([0.15, 0.5, 0.14, 0.03]), 'с1', initial=round(1/np.sqrt(rho1*beta1),6))
+    c_particle = TextBox(fig.add_axes([0.15, 0.5, 0.14, 0.03]), 'с1', initial=round(1 / np.sqrt(rho1 * beta1), 6))
     c_host = TextBox(fig.add_axes([0.15, 0.46, 0.14, 0.03]), 'с0', initial=round(1/np.sqrt(rho0*beta0),6))
-    с_particle.on_submit(on_change_с_particle)
-    c_host.on_submit(on_change_с_host)
+    c_particle.on_submit(on_change_c_particle)
+    c_host.on_submit(on_change_c_host)
 
     rho_particle = TextBox(fig.add_axes([0.15, 0.42, 0.14, 0.03]), 'rho1', initial=round(rho1, 6))
     rho_host = TextBox(fig.add_axes([0.15, 0.38, 0.14, 0.03]), 'rho0', initial=round(rho0, 6))

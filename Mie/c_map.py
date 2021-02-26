@@ -81,11 +81,11 @@ if __name__ == '__main__':
     Y_TICKS = 100   # кол-во пикселей по У
     GAP_IN_TICKS = 10   # расстояние между подписями на графике
 
-    c1_start = 100
-    c1_stop = 500
+    c1_start = 10
+    c1_stop = 100
 
-    f_start = 30
-    f_stop = 2000
+    f_start = 10
+    f_stop = 100
 
     fig, ax = plt.subplots()
     fig.set_size_inches(16,9)
